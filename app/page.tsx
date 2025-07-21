@@ -9,6 +9,7 @@ export default function Home() {
   const [streamUrl, setStreamUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [copy, setCopy] = useState("Copy");
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -53,6 +54,7 @@ export default function Home() {
     if (!streamUrl || !videoRef.current) return;
 
     const video = videoRef.current;
+    
 
     if (video.canPlayType("application/vnd.apple.mpegurl")) {
       video.src = streamUrl;
@@ -161,11 +163,31 @@ export default function Home() {
               <div className="text-sm text-gray-400">Uptime</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-amber-500">&lt;2s</div>
+              <div className="text-3xl font-bold text-amber-500">&lt;15s</div>
               <div className="text-sm text-gray-400">Load time</div>
             </div>
           </div>
         </section>
+        {streamUrl && (
+          <>
+          <textarea
+            readOnly
+            value={streamUrl}
+            className="w-full h-50vh bg-gray-900 rounded-2xl p-2 border border-gray-800"
+          />
+            <button
+              className="rounded-2xl text-black bg-white m-5 p-2"
+              onClick={() => {
+                navigator.clipboard.writeText(streamUrl);
+                setCopy("Copied");
+                setTimeout(() => setCopy("Copy"), 1500);
+              }}
+            >
+              {copy}
+            </button>
+          </>
+          
+        )}
 
         {/* Video Player */}
         {streamUrl && (
@@ -185,13 +207,7 @@ export default function Home() {
             </div>
           </section>
         )}
-        {streamUrl && (
-          <textarea
-            readOnly
-            value={streamUrl}
-            className="w-full h-50vh bg-gray-900 rounded-2xl p-2 border border-gray-800"
-          />
-        )}
+        
 
         {/* Features */}
         <section id="features" className="py-24">

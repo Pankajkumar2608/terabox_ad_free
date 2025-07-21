@@ -29,6 +29,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     const body: RequestBody = await request.json();
     const { url } = body;
     
+    
     if (!url) {
       return NextResponse.json({ error: "URL is required" }, { status: 400 });
     }
@@ -178,7 +179,13 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       await browser.close();
       console.timeEnd('Script Execution Time');
       
-      return NextResponse.json({ streamUrl: streamingUrl });
+      return NextResponse.json({ streamUrl: streamingUrl }, {
+      headers: {
+        'Access-Control-Allow-Origin': '*', // Allow all origins (adjust as needed)
+        'Access-Control-Allow-Methods': 'POST',
+        'Access-Control-Allow-Headers': 'Content-Type',
+      },
+    });
     } else {
       console.log('Some parameters missing. Cannot construct URL.');
       await browser.close();

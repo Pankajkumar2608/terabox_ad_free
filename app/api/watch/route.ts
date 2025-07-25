@@ -173,13 +173,13 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
     if (uk && shareid && fid && sign && timestamp && jstoken) {
       const streamingUrl: string = `https://www.terabox.app/share/streaming.m3u8?uk=${uk}&shareid=${shareid}&type=M3U8_AUTO_480&fid=${fid}&sign=${sign}&timestamp=${timestamp}&jsToken=${jstoken}&esl=1&isplayer=1&ehps=1&clienttype=0&app_id=250528&web=1&channel=dubox`;
-      
+      const encodedUrl = encodeURIComponent(streamingUrl);
       console.log('\nConstructed Streaming URL:\n', streamingUrl);
       
       await browser.close();
       console.timeEnd('Script Execution Time');
       
-      return NextResponse.json({ streamUrl: streamingUrl }, {
+      return NextResponse.json({ streamUrl: "https://kishanthonl.in-webersec.workers.dev/stream?url=" + streamingUrl }, {
       headers: {
         'Access-Control-Allow-Origin': '*', // Allow all origins (adjust as needed)
         'Access-Control-Allow-Methods': 'POST',

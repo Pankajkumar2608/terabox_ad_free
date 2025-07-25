@@ -172,7 +172,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     console.log(`\nExtracted Parameters:\nUK: ${uk}\nShareID: ${shareid}\nFID: ${fid}\nSign: ${sign}\nTimestamp: ${timestamp}\njsToken: ${jstoken}`);
 
     if (uk && shareid && fid && sign && timestamp && jstoken) {
-      const streamingUrl: string = `https://www.1024tera.com/share/streaming?uk=${uk}&shareid=${shareid}&type=M3U8_FLV_264_480&fid=${fid}&sign=${sign}&timestamp=${timestamp}&jsToken=${jstoken}&esl=1&isplayer=1&ehps=1&clienttype=0&app_id=250528&web=1&channel=dubox&short_link=`;
+      const streamingUrl: string = `https://www.terabox.app/share/streaming.m3u8?uk=${uk}&shareid=${shareid}&type=M3U8_AUTO_480&fid=${fid}&sign=${sign}&timestamp=${timestamp}&jsToken=${jstoken}&esl=1&isplayer=1&ehps=1&clienttype=0&app_id=250528&web=1&channel=dubox`;
       
       console.log('\nConstructed Streaming URL:\n', streamingUrl);
       
